@@ -1,0 +1,6 @@
+xml/creator/MainController/XmlReplaceFields.class
+xml/creator/TransformFile/NewXMLFile.class
+xml/creator/TransformFile/RestoreToDefault.class
+xml/creator/MainController/XmlFields.class
+xml/creator/MainController/XmlMap.class
+xml/creator/CreatorApplication.class
