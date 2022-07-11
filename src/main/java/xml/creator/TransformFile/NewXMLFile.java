@@ -12,29 +12,21 @@ import java.util.Scanner;
 @Controller
 public class NewXMLFile {
 
-    File filePath = new File("C:\\\\Users\\\\Mati\\\\IdeaProjects\\\\creator\\\\src\\\\main\\\\resources\\\\static\\\\transformata.xsl");
-    private String tempFile  = "C:\\Users\\Mati\\IdeaProjects\\creator\\src\\main\\resources\\static\\";
-
+    //@TODO ZMIENIC NA FINAL
+    File filePath = new File("/home/admin_benhauer/IdeaProjects/XMLcreator-main/src/main/resources/static/transformata.xsl");
+    private String tempFile  = "/home/admin_benhauer/IdeaProjects/XMLcreator-main/src/main/resources/static/";
     File fileToRemove = new File(tempFile);
 
 
 
-    public String copyFile() throws IOException {
-        tempFile  = "C:\\Users\\Mati\\IdeaProjects\\creator\\src\\main\\resources\\static\\";
+    public File copyFile() throws IOException {
         File ewq = File.createTempFile("TempXslFile",".xsl", new File(tempFile));
-        ewq.deleteOnExit();
         Files.copy(Paths.get(String.valueOf(filePath)), Paths.get(String.valueOf(ewq)), StandardCopyOption.REPLACE_EXISTING);
-        tempFile += ewq.getName();
-        System.out.println(tempFile);
-        return tempFile;
+        return ewq;
         }
-
-    public void removefile() throws IOException {
-        System.out.println("do sunięcia " + fileToRemove.getPath());
-    }
-
     public String XmlFile(XmlFields xml) throws IOException {
-        Scanner sc = new Scanner(new File(tempFile));
+        File file = copyFile();
+        Scanner sc = new Scanner(file.getAbsoluteFile());
         StringBuffer buffer = new StringBuffer();
         while (sc.hasNextLine()) {
             buffer.append(sc.nextLine()+System.lineSeparator());
@@ -43,10 +35,11 @@ public class NewXMLFile {
         sc.close();
         fileContents = fileContents.replace("g:id", xml.getId());
         fileContents = fileContents.replace("g:title", xml.getName());
-        FileWriter writer = new FileWriter(tempFile);
+        FileWriter writer = new FileWriter(file);
         writer.append(fileContents);
         writer.flush();
-
+        System.out.println(file.isFile());
+        file.delete();
         return fileContents;
     }
     }

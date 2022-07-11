@@ -16,14 +16,13 @@ public class XmlMap {
 
 
     public String cos(XmlFields xml) throws IOException {
-            newXMLFile.copyFile();
             return newXMLFile.XmlFile(xml);
     }
 
     @PostMapping
     @ResponseBody
     public String xd(@RequestBody XmlFields xml) throws IOException {
-        newXMLFile.removefile();
-        return  cos(xml);
+        String a = cos(xml);
+        return  a;
     }
 }
