@@ -13,8 +13,8 @@ import java.util.Scanner;
 public class NewXMLFile {
 
     //@TODO ZMIENIC NA FINAL
-    File filePath = new File("/home/admin_benhauer/IdeaProjects/XMLcreator-main/src/main/resources/static/transformata.xsl");
-    private String tempFile  = "/home/admin_benhauer/IdeaProjects/XMLcreator-main/src/main/resources/static/";
+    File filePath = new File("C:\\Users\\Mati\\IdeaProjects\\XMLcreator-DEV\\src\\main\\resources\\static\\transformata.xsl");
+    private String tempFile  = "C:\\Users\\Mati\\IdeaProjects\\XMLcreator-DEV\\src\\main\\resources\\static";
     File fileToRemove = new File(tempFile);
 
 
@@ -23,7 +23,7 @@ public class NewXMLFile {
         File ewq = File.createTempFile("TempXslFile",".xsl", new File(tempFile));
         Files.copy(Paths.get(String.valueOf(filePath)), Paths.get(String.valueOf(ewq)), StandardCopyOption.REPLACE_EXISTING);
         return ewq;
-        }
+    }
     public String XmlFile(XmlFields xml) throws IOException {
         File file = copyFile();
         Scanner sc = new Scanner(file.getAbsoluteFile());
@@ -33,13 +33,16 @@ public class NewXMLFile {
         }
         String fileContents = buffer.toString();
         sc.close();
+        FileWriter writer = new FileWriter(file);
         fileContents = fileContents.replace("g:id", xml.getId());
         fileContents = fileContents.replace("g:title", xml.getName());
-        FileWriter writer = new FileWriter(file);
         writer.append(fileContents);
         writer.flush();
         System.out.println(file.isFile());
+        writer.close(); // Windows ma problem z usuwaniem bez zamkniecia writera
         file.delete();
         return fileContents;
     }
+
+
     }
